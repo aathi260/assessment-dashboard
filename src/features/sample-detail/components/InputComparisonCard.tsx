@@ -1,11 +1,11 @@
-import type { AssessedInput, ReferenceInput } from '../../schemas'
-import { imageSrc } from '../../assets/images/registry'
-import { formatConfidence } from '../../lib/format'
-import { inputDeltaPp } from '../../lib/metrics'
-import { SwapIcon } from '../icons'
-import { Card } from '../ui/Card'
-import { Delta } from '../ui/Delta'
-import { SectionHeader } from '../ui/SectionHeader'
+import type { AssessedInput, ReferenceInput } from '../../../schemas'
+import { imageSrc } from '../../../assets/images/registry'
+import { formatConfidence } from '../../../lib/format'
+import { inputDeltaPp } from '../../../lib/assessmentMetrics'
+import { SwapIcon } from '../../../components/icons'
+import { Card } from '../../../components/ui/Card'
+import { Delta } from '../../../components/ui/Delta'
+import { SectionHeader } from '../../../components/ui/SectionHeader'
 
 function Panel({ label, imageKey, alt }: { label: string; imageKey: string; alt: string }) {
   return (
@@ -16,7 +16,7 @@ function Panel({ label, imageKey, alt }: { label: string; imageKey: string; alt:
   )
 }
 
-export function InputComparison({
+export function InputComparisonCard({
   reference,
   input,
   sampleLabel,

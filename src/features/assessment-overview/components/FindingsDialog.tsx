@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
-import type { Assessment } from '../../schemas'
-import { CloseIcon } from '../icons'
-import { PriorityPill } from '../ui/PriorityPill'
+import type { Assessment } from '../../../schemas'
+import { CloseIcon } from '../../../components/icons'
+import { PriorityPill } from '../../../components/ui/PriorityPill'
 import { FindingsList } from './FindingsList'
 
 /** Modal built on the native <dialog>: focus trap, Esc to close and inert background come for free. */

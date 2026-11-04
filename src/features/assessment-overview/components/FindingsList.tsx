@@ -1,5 +1,5 @@
-import type { Finding } from '../../schemas'
-import { cn } from '../../lib/cn'
+import type { Finding } from '../../../schemas'
+import { cn } from '../../../lib/cn'
 
 function NumberBadge({ n }: { n: number }) {
   return (

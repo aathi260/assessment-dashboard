@@ -1,15 +1,15 @@
-import { getCategory } from '../../data/repository'
-import type { CategoryResult } from '../../schemas'
-import { formatPercent } from '../../lib/format'
-import { Card } from '../ui/Card'
-import { SectionHeader } from '../ui/SectionHeader'
+import { getCategory } from '../../../data/repository'
+import type { CategoryResult } from '../../../schemas'
+import { formatPercent } from '../../../lib/format'
+import { Card } from '../../../components/ui/Card'
+import { SectionHeader } from '../../../components/ui/SectionHeader'
 
 const ticks = [100, 80, 60, 40, 20, 0]
 const barColors = ['bg-bar-1', 'bg-bar-2', 'bg-bar-3', 'bg-bar-4'] as const
 const labelColors = ['text-bar-1', 'text-bar-2', 'text-bar-3', 'text-bar-4'] as const
 
 /** Vertical bar chart (0–100 %) built from plain elements so it scales with the card. */
-export function DegradationChart({ results }: { results: CategoryResult[] }) {
+export function CategoryDegradationChart({ results }: { results: CategoryResult[] }) {
   // Colour follows rank (darkest = most degraded), not position.
   const rank = new Map(
     [...results].sort((a, b) => b.degradationPct - a.degradationPct).map((r, i) => [r.categoryId, i]),

@@ -1,16 +1,16 @@
-import { getCategory } from '../../data/repository'
-import type { TestSample } from '../../schemas'
-import { formatConfidence } from '../../lib/format'
-import { paths } from '../../lib/route'
-import { ChevronRightIcon } from '../icons'
-import { Card } from '../ui/Card'
-import { Delta } from '../ui/Delta'
-import { SectionHeader } from '../ui/SectionHeader'
-import { ThumbStack } from '../ui/ThumbStack'
+import { getCategory } from '../../../data/repository'
+import type { TestSample } from '../../../schemas'
+import { formatConfidence } from '../../../lib/format'
+import { paths } from '../../../app/routes'
+import { ChevronRightIcon } from '../../../components/icons'
+import { Card } from '../../../components/ui/Card'
+import { Delta } from '../../../components/ui/Delta'
+import { SectionHeader } from '../../../components/ui/SectionHeader'
+import { ThumbStack } from '../../../components/ui/ThumbStack'
 
 const cols = 'sm:grid sm:grid-cols-[48px_minmax(150px,1.5fr)_1fr_1fr_1.3fr_28px] sm:items-center sm:gap-4'
 
-export function SamplesTable({ assessmentId, samples }: { assessmentId: string; samples: TestSample[] }) {
+export function TestSamplesTable({ assessmentId, samples }: { assessmentId: string; samples: TestSample[] }) {
   return (
     <Card className="p-5" aria-labelledby="samples-title">
       <SectionHeader id="samples-title" title="Test Samples" />

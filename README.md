@@ -15,7 +15,7 @@ npm run format         # Prettier
 npm run validate:data  # schema + cross-record validation of the mock data
 ```
 
-Requires Node ≥ 20.19.
+Requires Node ≥ 20.19. Works on macOS, Linux and Windows (LF line endings are enforced via `.gitattributes` and Prettier).
 
 ### Routes (hash based, no router dependency)
 
@@ -75,13 +75,24 @@ No Tailwind Plus / Catalyst files were present in the authorised folder, so ever
 
 ```
 src/
-  schemas/      Zod schemas + inferred types (one file per domain)
-  data/         mock/ (raw data), validate.ts (schema + cross-checks), dataset.ts, repository.ts (read API)
-  lib/          pure helpers: format, metrics (aggregation, findings), route, report, cn
-  components/   ui/ (primitives) · layout/ · overview/ · sample/ · icons/
-  pages/        OverviewPage, SamplePage
-  assets/       fonts, images (+ generated mock variants)
+  app/                      App shell wiring: App.tsx, routes.ts (hash router + path builders)
+  features/
+    assessment-overview/    AssessmentOverviewPage + components/ (OverallScoreCard, ConfidenceMetricCard,
+                            CategoryDegradationChart, KeyFindingsCard, FindingsList, FindingsDialog, TestSamplesTable)
+    sample-detail/          SampleDetailPage + components/ (SampleHeaderCard, SampleCategoryResults,
+                            AssessedInputsGrid, InputComparisonCard)
+  components/
+    ui/                     Primitives: Card, Button, SectionHeader, SelectableCard, Delta, PriorityPill, InfoButton, ThumbStack
+    layout/                 AppShell, Breadcrumbs, PageHeader, AssessmentHeading, NotFound, DemoStateSwitcher
+    icons/
+  schemas/                  Zod schemas + inferred types (one file per domain)
+  data/                     mock/ (raw data), validate.ts (schema + cross-checks), dataset.ts, repository.ts (read API)
+  lib/                      Pure helpers: format, assessmentMetrics (aggregation, findings), report, cn
+  assets/                   fonts, images (+ generated mock variants)
 ```
+
+Naming: components and pages are `PascalCase.tsx` named after what they show; helpers are `camelCase.ts`;
+feature folders are `kebab-case`. A feature may import from `components/`, `lib/`, `data/` and `schemas/`, never from another feature.
 
 Data flows `mock → validate → dataset → repository → pages`. The UI never reads raw arrays, so a real API can replace
 `repository.ts`. Sample-level numbers are **derived** from the variants (average / worst case), never hand-typed twice.

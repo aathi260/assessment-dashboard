@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import type { AssessedInput } from '../../schemas'
-import { imageSrc } from '../../assets/images/registry'
-import { ArrowDownIcon, ArrowUpIcon, CheckBadge } from '../icons'
-import { Card } from '../ui/Card'
-import { SectionHeader } from '../ui/SectionHeader'
-import { SelectableCard } from '../ui/SelectableCard'
+import type { AssessedInput } from '../../../schemas'
+import { imageSrc } from '../../../assets/images/registry'
+import { ArrowDownIcon, ArrowUpIcon, CheckBadge } from '../../../components/icons'
+import { Card } from '../../../components/ui/Card'
+import { SectionHeader } from '../../../components/ui/SectionHeader'
+import { SelectableCard } from '../../../components/ui/SelectableCard'
 
 /** Inputs visible before "View all inputs" is pressed. */
 const COLLAPSED_COUNT = 4
@@ -24,7 +24,7 @@ function visibleInputs(inputs: AssessedInput[], expanded: boolean, selectedId: s
   return !selected || head.includes(selected) ? head : [...head.slice(0, COLLAPSED_COUNT - 1), selected]
 }
 
-export function AssessedInputs({ inputs, selectedId, onSelect, categoryLabel }: AssessedInputsProps) {
+export function AssessedInputsGrid({ inputs, selectedId, onSelect, categoryLabel }: AssessedInputsProps) {
   const [expanded, setExpanded] = useState(false)
   const canExpand = inputs.length > COLLAPSED_COUNT
   const shown = visibleInputs(inputs, expanded, selectedId)

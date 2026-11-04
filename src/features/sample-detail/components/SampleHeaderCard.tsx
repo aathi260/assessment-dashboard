@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react'
-import type { TestSample } from '../../schemas'
-import { imageSrc } from '../../assets/images/registry'
-import { formatConfidence } from '../../lib/format'
-import { Card } from '../ui/Card'
-import { Delta } from '../ui/Delta'
-import { SectionHeader } from '../ui/SectionHeader'
+import type { TestSample } from '../../../schemas'
+import { imageSrc } from '../../../assets/images/registry'
+import { formatConfidence } from '../../../lib/format'
+import { Card } from '../../../components/ui/Card'
+import { Delta } from '../../../components/ui/Delta'
+import { SectionHeader } from '../../../components/ui/SectionHeader'
 
 function Metric({ title, caption, children }: { title: string; caption: string; children: ReactNode }) {
   return (
@@ -16,7 +16,7 @@ function Metric({ title, caption, children }: { title: string; caption: string; 
   )
 }
 
-export function SampleSummary({ sample, totalInputs }: { sample: TestSample; totalInputs: number }) {
+export function SampleHeaderCard({ sample, totalInputs }: { sample: TestSample; totalInputs: number }) {
   return (
     <Card className="p-5" aria-labelledby="sample-title">
       <SectionHeader

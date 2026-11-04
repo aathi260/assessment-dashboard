@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
+import { imageSrc } from '../../assets/images/registry'
 import { cn } from '../../lib/cn'
 import { CubeIcon, GridIcon, LogoutIcon, ReportIcon } from '../icons'
-import { avatarSrc } from './avatar'
 
 const NAV_ITEMS = [
   { label: 'Dashboard', icon: GridIcon, active: true },
@@ -56,7 +56,7 @@ export function AppShell({ children, footer }: { children: ReactNode; footer?: R
         <div className="flex items-center gap-4">
           <span className="text-base">Workspace</span>
           <span className="h-[31px] w-px bg-divider" aria-hidden="true" />
-          <img src={avatarSrc} alt="Signed-in user" className="size-[33px] rounded-full" />
+          <img src={imageSrc('avatar')} alt="Signed-in user" className="size-[33px] rounded-full" />
         </div>
       </header>
 

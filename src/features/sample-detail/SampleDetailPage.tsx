@@ -5,16 +5,16 @@ import {
   getReferenceInput,
   getSample,
   getSampleCategorySummaries,
-} from '../data/repository'
-import type { Assessment, CategoryId } from '../schemas'
-import { paths } from '../lib/route'
-import { AssessmentHeading } from '../components/layout/PageHeader'
-import { AssessedInputs } from '../components/sample/AssessedInputs'
-import { CategoryResults } from '../components/sample/CategoryResults'
-import { InputComparison } from '../components/sample/InputComparison'
-import { SampleSummary } from '../components/sample/SampleSummary'
+} from '../../data/repository'
+import type { Assessment, CategoryId } from '../../schemas'
+import { NotFound } from '../../components/layout/NotFound'
+import { AssessmentHeading } from '../../components/layout/AssessmentHeading'
+import { AssessedInputsGrid } from './components/AssessedInputsGrid'
+import { SampleCategoryResults } from './components/SampleCategoryResults'
+import { InputComparisonCard } from './components/InputComparisonCard'
+import { SampleHeaderCard } from './components/SampleHeaderCard'
 
-export function SamplePage({ assessment, sampleId }: { assessment: Assessment; sampleId: string }) {
+export function SampleDetailPage({ assessment, sampleId }: { assessment: Assessment; sampleId: string }) {
   const sample = getSample(sampleId)
   const reference = getReferenceInput(sampleId)
   if (!sample || !reference) return <NotFound assessmentId={assessment.id} what={`Sample “${sampleId}”`} />
@@ -41,8 +41,8 @@ function SampleView({ assessment, sampleId }: { assessment: Assessment; sampleId
       <AssessmentHeading assessment={assessment} trail={[{ label: sample.label }]} />
 
       <div className="space-y-3.5">
-        <SampleSummary sample={sample} totalInputs={allInputs.length} />
-        <CategoryResults
+        <SampleHeaderCard sample={sample} totalInputs={allInputs.length} />
+        <SampleCategoryResults
           summaries={summaries}
           selected={categoryId}
           onSelect={(id) => {
@@ -50,28 +50,14 @@ function SampleView({ assessment, sampleId }: { assessment: Assessment; sampleId
             setPickedId(getAssessedInputs(sampleId, id)[0]?.id)
           }}
         />
-        <AssessedInputs
+        <AssessedInputsGrid
           inputs={inputs}
           selectedId={selected?.id}
           onSelect={setPickedId}
           categoryLabel={getCategory(categoryId).label}
         />
-        <InputComparison reference={reference} input={selected} sampleLabel={sample.label} />
+        <InputComparisonCard reference={reference} input={selected} sampleLabel={sample.label} />
       </div>
     </>
-  )
-}
-
-export function NotFound({ assessmentId, what }: { assessmentId?: string; what: string }) {
-  return (
-    <div className="mx-auto mt-16 max-w-md rounded-card bg-surface p-8 text-center shadow-card">
-      <h1 className="text-lg font-medium">{what} was not found</h1>
-      <a
-        href={assessmentId ? paths.overview(assessmentId) : '#/'}
-        className="mt-4 inline-block text-sm font-medium text-coral hover:underline"
-      >
-        Back to overview
-      </a>
-    </div>
   )
 }

@@ -1,5 +1,5 @@
 import type { Assessment, ConfidenceMetric, Recommendation } from '../../schemas'
-import { buildFindings } from '../../lib/metrics'
+import { buildFindings } from '../../lib/assessmentMetrics'
 import { categories } from './categories'
 
 /**

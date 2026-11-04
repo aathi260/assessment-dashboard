@@ -1,6 +1,6 @@
 import type { AssessedInput, Assessment, AssessmentCategory, CategoryId, ReferenceInput, TestSample } from '../schemas'
-import { summariseSampleCategory } from '../lib/metrics'
-import type { SampleCategorySummary } from '../lib/metrics'
+import { summariseSampleCategory } from '../lib/assessmentMetrics'
+import type { SampleCategorySummary } from '../lib/assessmentMetrics'
 import { dataset } from './dataset'
 
 /** Read-only accessors. The UI never touches raw arrays, so a real API can replace this file later. */

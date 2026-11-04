@@ -7,7 +7,7 @@ import {
   TestSampleSchema,
 } from '../schemas'
 import type { AssessedInput, Assessment, AssessmentCategory, ReferenceInput, TestSample } from '../schemas'
-import { summariseSampleCategory } from '../lib/metrics'
+import { summariseSampleCategory } from '../lib/assessmentMetrics'
 
 export interface RawDataset {
   categories: unknown

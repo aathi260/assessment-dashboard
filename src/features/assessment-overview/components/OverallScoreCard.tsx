@@ -1,8 +1,8 @@
-import type { OverallScore } from '../../schemas'
-import { InfoButton } from '../ui/InfoButton'
+import type { OverallScore } from '../../../schemas'
+import { InfoButton } from '../../../components/ui/InfoButton'
 
 /** Overall score tile with its two explicit states: scored (`18 / 100`) and not applicable (`N/A`). */
-export function ScoreCard({ score }: { score: OverallScore }) {
+export function OverallScoreCard({ score }: { score: OverallScore }) {
   return (
     <section
       aria-labelledby="overall-score-title"

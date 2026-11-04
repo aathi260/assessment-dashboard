@@ -1,10 +1,10 @@
-import type { Assessment } from '../../schemas'
-import { AlertIcon, ArrowRightIcon, ArrowUpRightIcon } from '../icons'
-import { Card } from '../ui/Card'
-import { SectionHeader } from '../ui/SectionHeader'
+import type { Assessment } from '../../../schemas'
+import { AlertIcon, ArrowRightIcon, ArrowUpRightIcon } from '../../../components/icons'
+import { Card } from '../../../components/ui/Card'
+import { SectionHeader } from '../../../components/ui/SectionHeader'
 import { FindingsList } from './FindingsList'
 
-export function FindingsSummary({ assessment, onOpen }: { assessment: Assessment; onOpen: () => void }) {
+export function KeyFindingsCard({ assessment, onOpen }: { assessment: Assessment; onOpen: () => void }) {
   return (
     <Card className="flex flex-col p-5" aria-labelledby="findings-title">
       <SectionHeader

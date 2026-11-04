@@ -1,12 +1,12 @@
-import { getCategory } from '../../data/repository'
-import type { CategoryId } from '../../schemas'
-import type { SampleCategorySummary } from '../../lib/metrics'
-import { formatConfidence } from '../../lib/format'
-import { Card } from '../ui/Card'
-import { Delta } from '../ui/Delta'
-import { InfoButton } from '../ui/InfoButton'
-import { SectionHeader } from '../ui/SectionHeader'
-import { SelectableCard } from '../ui/SelectableCard'
+import { getCategory } from '../../../data/repository'
+import type { CategoryId } from '../../../schemas'
+import type { SampleCategorySummary } from '../../../lib/assessmentMetrics'
+import { formatConfidence } from '../../../lib/format'
+import { Card } from '../../../components/ui/Card'
+import { Delta } from '../../../components/ui/Delta'
+import { InfoButton } from '../../../components/ui/InfoButton'
+import { SectionHeader } from '../../../components/ui/SectionHeader'
+import { SelectableCard } from '../../../components/ui/SelectableCard'
 
 const AGGREGATION_LABEL = { average: 'Average degradation', maximum: 'Maximum degradation' } as const
 
@@ -16,7 +16,7 @@ interface CategoryResultsProps {
   onSelect: (id: CategoryId) => void
 }
 
-export function CategoryResults({ summaries, selected, onSelect }: CategoryResultsProps) {
+export function SampleCategoryResults({ summaries, selected, onSelect }: CategoryResultsProps) {
   return (
     <Card className="p-5" aria-labelledby="category-results-title">
       <SectionHeader
