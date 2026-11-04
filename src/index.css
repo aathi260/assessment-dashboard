@@ -1,0 +1,200 @@
+@import 'tailwindcss';
+
+/* ───────── Fonts (self-hosted, SIL OFL) ─────────
+   Mona Sans: github.com/github/mona-sans · Inter: github.com/rsms/inter
+   The deck names "Mona Sans Medium/SemiBold/…" as separate families; here they are weights of one family. */
+@font-face {
+  font-family: 'Mona Sans';
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/fonts/MonaSans-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Mona Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/fonts/MonaSans-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Mona Sans';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/fonts/MonaSans-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Mona Sans';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/fonts/MonaSans-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Mona Sans';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/fonts/MonaSans-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Mona Sans';
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/fonts/MonaSans-ExtraBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/fonts/Inter-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/fonts/Inter-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/fonts/Inter-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('./assets/fonts/Inter-Bold.woff2') format('woff2');
+}
+
+/* ───────── Design tokens (extracted from Dashboard Mockup v3) ─────────
+   The deck is 1005 pt wide ≙ 1340 px, so 1 pt = 1.333 px. Sizes below are the deck's pt sizes × 1.333. */
+@theme {
+  --font-sans: 'Mona Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-inter: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Surfaces */
+  --color-canvas: #fcfcfc; /* page background */
+  --color-surface: #ffffff; /* cards, header, sidebar */
+  --color-hairline: #dfdfdf; /* card outline (deck: #DFDFDF @ 25%) */
+  --color-divider: #e9e9e9; /* table rules */
+  --color-chip-blue: #f2faff; /* "Reference Input" label chip */
+  --color-chip-grey: #f2f2f2; /* (i) info button background */
+  --color-chip-grey-hover: #e8e8e8;
+  --color-grid-line: #d6d6d6; /* dotted chart gridlines */
+  --color-badge-dark: #3a3737; /* "S1" badge on the hero image */
+  --color-ghost-1: #ededed; /* stacked-thumbnail ghost frames */
+  --color-ghost-2: #e2e2e2;
+
+  /* Text */
+  --color-ink: #17171c; /* primary text, "Image" pill label */
+  --color-ink-strong: #000000; /* titles, table values */
+  --color-slate: #6b788c; /* secondary text, axis, table headers */
+  --color-muted: #606061; /* KPI labels */
+  --color-body: #25282c; /* findings text inside the dialog */
+  --color-subtle: #4f4f4f; /* "No change" in the table */
+  --color-navy: #071427; /* values in the comparison table */
+
+  /* Brand reds */
+  --color-coral: #ff6268; /* negative deltas, links, accents */
+  --color-brand: #e53f3f; /* primary button, lightest chart bar */
+  --color-brand-hover: #d23535;
+  --color-brand-active: #bd2d2d;
+  --color-brand-link: #bf2020; /* "View all inputs" */
+  --color-score-from: #a81818; /* overall score gradient start */
+  --color-score-to: #c52323; /* overall score gradient end */
+  --color-coral-tint: rgb(255 99 99 / 0.12); /* numbered finding badges */
+
+  /* Chart bars, darkest = highest degradation */
+  --color-bar-1: #730d0d;
+  --color-bar-2: #9e1414;
+  --color-bar-3: #c72424;
+  --color-bar-4: #e53f3f;
+
+  /* Status */
+  --color-positive: #0f9a2d;
+  --color-select-ring: #94d7ae;
+  --color-select-fill: #f6fff9;
+  --color-select-glow: #def9e8;
+  --color-priority-high-bg: #f8aeae;
+  --color-priority-high-fg: #da0707;
+  --color-priority-medium-bg: #ffeba1;
+  --color-priority-medium-fg: #d19200;
+  --color-priority-low-bg: #bbf4b3;
+  --color-priority-low-fg: #1d6f17;
+  --color-overlay: rgb(0 0 0 / 0.28);
+
+  /* Type scale (px = deck pt × 1.333) */
+  --text-2xs: 0.625rem;
+  --text-2xs--line-height: 1.2;
+  --text-xs: 0.6875rem;
+  --text-xs--line-height: 1.35;
+  --text-sm: 0.75rem;
+  --text-sm--line-height: 1.45;
+  --text-md: 0.8125rem;
+  --text-md--line-height: 1.4;
+  --text-base: 0.875rem;
+  --text-base--line-height: 1.4;
+  --text-lg: 0.9375rem;
+  --text-lg--line-height: 1.35;
+  --text-heading: 1.25rem;
+  --text-heading--line-height: 1.2;
+  --text-title: 1.5rem;
+  --text-title--line-height: 1.2;
+  --text-kpi: 1.875rem;
+  --text-kpi--line-height: 1.1;
+  --text-score: 2rem;
+  --text-score--line-height: 1.1;
+
+  /* Radii & shadows */
+  --radius-card: 1rem;
+  --radius-input: 0.75rem;
+  --radius-dialog: 1.25rem;
+  --radius-bar: 0.625rem;
+
+  /* Layout metrics (deck pt × 1.333) */
+  --spacing-chart: 13.5625rem; /* chart plot height, 217px */
+  --spacing-kpi: 8.4375rem; /* KPI / score card min height, 135px */
+  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.04), 0 2px 8px rgb(16 24 40 / 0.05);
+  --shadow-pop: 0 12px 40px rgb(0 0 0 / 0.18);
+  --shadow-score: 0 6px 18px rgb(168 24 24 / 0.28);
+  --shadow-thumb: 0 2px 8px rgb(0 0 0 / 0.18);
+  --shadow-float: 0 4px 14px rgb(0 0 0 / 0.12);
+  --shadow-select: 0 0 0 3px var(--color-select-glow), 0 4px 14px rgb(15 154 45 / 0.12);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--color-canvas);
+    color: var(--color-ink-strong);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    -webkit-font-smoothing: antialiased;
+  }
+  button,
+  [role='button'],
+  summary {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-coral);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: normal;
+  } /* deck uses proportional, un-slashed figures */
+}
