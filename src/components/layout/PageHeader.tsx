@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Assessment, ModelOutputType } from '../../schemas'
 import { downloadReport } from '../../lib/report'
 import { paths } from '../../lib/route'
@@ -43,11 +44,13 @@ export function PageHeader({
   title,
   outputType,
   onDownload,
+  downloading = false,
   className,
 }: {
   title: string
   outputType: ModelOutputType
   onDownload: () => void
+  downloading?: boolean
   className?: string
 }) {
   return (
@@ -62,9 +65,9 @@ export function PageHeader({
           <InfoIcon size={12} aria-hidden="true" />
           <span className="sr-only">model output type</span>
         </span>
-        <Button onClick={onDownload}>
+        <Button onClick={onDownload} disabled={downloading} aria-busy={downloading} className="disabled:opacity-60">
           <DownloadIcon size={13} />
-          Download Report
+          {downloading ? 'Preparing PDF…' : 'Download Report'}
         </Button>
       </div>
     </div>
@@ -73,7 +76,24 @@ export function PageHeader({
 
 /** Breadcrumbs + title + actions shared by every assessment screen; `trail` is whatever follows the product name. */
 export function AssessmentHeading({ assessment, trail = [] }: { assessment: Assessment; trail?: Crumb[] }) {
+  const [downloading, setDownloading] = useState(false)
+  const [downloadError, setDownloadError] = useState('')
   const overviewHref = paths.overview(assessment.id)
+
+  async function handleDownload() {
+    if (downloading) return
+
+    setDownloading(true)
+    setDownloadError('')
+    try {
+      await downloadReport(assessment)
+    } catch (error) {
+      console.error('Assessment PDF export failed', error)
+      setDownloadError('The assessment PDF could not be created. Please try again.')
+    } finally {
+      setDownloading(false)
+    }
+  }
   return (
     <>
       <Breadcrumbs
@@ -86,8 +106,14 @@ export function AssessmentHeading({ assessment, trail = [] }: { assessment: Asse
       <PageHeader
         title={`Assessment Overview - ${assessment.productName}`}
         outputType={assessment.modelOutputType}
-        onDownload={() => downloadReport(assessment)}
+        onDownload={() => void handleDownload()}
+        downloading={downloading}
       />
+      {downloadError && (
+        <p role="alert" className="mb-4 text-sm text-brand-link">
+          {downloadError}
+        </p>
+      )}
     </>
   )
 }

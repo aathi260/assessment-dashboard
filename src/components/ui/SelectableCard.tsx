@@ -5,7 +5,7 @@ interface SelectableCardProps {
   /** Radio group name; cards sharing a name behave as one native radio group (arrow keys, tab stop). */
   name: string
   checked: boolean
-  onSelect: () => void
+  onSelect?: () => void
   ariaLabel?: string
   className?: string
   children: ReactNode
@@ -16,23 +16,27 @@ interface SelectableCardProps {
  * and a visible focus ring. Used for category cards and assessed-input thumbnails.
  */
 export function SelectableCard({ name, checked, onSelect, ariaLabel, className, children }: SelectableCardProps) {
+  const Element = onSelect ? 'label' : 'div'
   return (
-    <label
+    <Element
       className={cn(
-        'relative block cursor-pointer rounded-xl border transition-shadow has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-coral',
+        'relative block rounded-xl border transition-shadow has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-coral',
+        onSelect && 'cursor-pointer',
         checked ? 'border-select-ring bg-select-fill shadow-select' : 'border-hairline bg-surface hover:shadow-card',
         className,
       )}
     >
-      <input
-        type="radio"
-        name={name}
-        className="sr-only"
-        checked={checked}
-        onChange={onSelect}
-        aria-label={ariaLabel}
-      />
+      {onSelect && (
+        <input
+          type="radio"
+          name={name}
+          className="sr-only"
+          checked={checked}
+          onChange={onSelect}
+          aria-label={ariaLabel}
+        />
+      )}
       {children}
-    </label>
+    </Element>
   )
 }

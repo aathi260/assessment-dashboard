@@ -50,36 +50,46 @@ export function FindingsDialog({
 
         <FindingsList findings={assessment.findings} className="mt-5" itemClassName="text-md text-body" />
 
-        <h2 className="mt-9 text-lg font-medium">Recommendations</h2>
-        <p className="mt-1 text-xs text-ink">Suggested actions to address findings and reduce risks.</p>
-
-        <table className="mt-4 w-full border-collapse text-left">
-          <thead>
-            <tr className="font-inter text-sm font-semibold text-slate">
-              <th scope="col" className="w-12 pb-3 font-semibold sm:w-20">
-                #
-              </th>
-              <th scope="col" className="pb-3 font-semibold">
-                Recommendations
-              </th>
-              <th scope="col" className="w-[82px] pb-3 text-center font-semibold sm:w-24">
-                Priority
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {assessment.recommendations.map((r) => (
-              <tr key={r.id} className="border-t border-divider">
-                <td className="py-3 text-md font-semibold tabular">{r.order}</td>
-                <td className="py-3 pr-3 text-md">{r.text}</td>
-                <td className="py-3 text-center">
-                  <PriorityPill priority={r.priority} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="mt-9">
+          <RecommendationsTable recommendations={assessment.recommendations} />
+        </div>
       </div>
     </dialog>
+  )
+}
+
+export function RecommendationsTable({ recommendations }: { recommendations: Assessment['recommendations'] }) {
+  return (
+    <>
+      <h2 className="text-lg font-medium">Recommendations</h2>
+      <p className="mt-1 text-xs text-ink">Suggested actions to address findings and reduce risks.</p>
+
+      <table className="mt-4 w-full border-collapse text-left">
+        <thead>
+          <tr className="font-inter text-sm font-semibold text-slate">
+            <th scope="col" className="w-12 pb-3 font-semibold sm:w-20">
+              #
+            </th>
+            <th scope="col" className="pb-3 font-semibold">
+              Recommendations
+            </th>
+            <th scope="col" className="w-[82px] pb-3 text-center font-semibold sm:w-24">
+              Priority
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {recommendations.map((r) => (
+            <tr key={r.id} className="border-t border-divider">
+              <td className="py-3 text-md font-semibold tabular">{r.order}</td>
+              <td className="py-3 pr-3 text-md">{r.text}</td>
+              <td className="py-3 text-center">
+                <PriorityPill priority={r.priority} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   )
 }

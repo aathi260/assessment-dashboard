@@ -20,10 +20,12 @@ export function InputComparison({
   reference,
   input,
   sampleLabel,
+  report = false,
 }: {
   reference: ReferenceInput
   input: AssessedInput | undefined
   sampleLabel: string
+  report?: boolean
 }) {
   return (
     <Card className="p-5" aria-labelledby="selected-input-title">
@@ -96,7 +98,9 @@ export function InputComparison({
         </div>
       ) : (
         <p className="mt-5 rounded-xl bg-chip-blue p-6 text-sm text-slate">
-          Select an assessed input above to compare it with the reference input.
+          {report
+            ? 'No assessed input is available in this category.'
+            : 'Select an assessed input above to compare it with the reference input.'}
         </p>
       )}
     </Card>

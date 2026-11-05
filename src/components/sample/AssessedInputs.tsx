@@ -12,7 +12,7 @@ const COLLAPSED_COUNT = 4
 interface AssessedInputsProps {
   inputs: AssessedInput[]
   selectedId: string | undefined
-  onSelect: (id: string) => void
+  onSelect?: (id: string) => void
   categoryLabel: string
 }
 
@@ -26,7 +26,7 @@ function visibleInputs(inputs: AssessedInput[], expanded: boolean, selectedId: s
 
 export function AssessedInputs({ inputs, selectedId, onSelect, categoryLabel }: AssessedInputsProps) {
   const [expanded, setExpanded] = useState(false)
-  const canExpand = inputs.length > COLLAPSED_COUNT
+  const canExpand = onSelect && inputs.length > COLLAPSED_COUNT
   const shown = visibleInputs(inputs, expanded, selectedId)
 
   return (
@@ -37,7 +37,8 @@ export function AssessedInputs({ inputs, selectedId, onSelect, categoryLabel }: 
         title="Assessed Inputs"
         subtitle={
           <>
-            Select an assessed input to view its result. <span className="text-slate">· {categoryLabel}</span>
+            {onSelect && 'Select an assessed input to view its result. · '}
+            <span className="text-slate">{categoryLabel}</span>
           </>
         }
         className="flex-wrap items-end"
@@ -64,13 +65,17 @@ export function AssessedInputs({ inputs, selectedId, onSelect, categoryLabel }: 
         }
       />
 
-      <div role="radiogroup" aria-label="Assessed inputs" className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div
+        role={onSelect ? 'radiogroup' : undefined}
+        aria-label="Assessed inputs"
+        className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4"
+      >
         {shown.map((input) => (
           <SelectableCard
             key={input.id}
             name="assessed-input"
             checked={input.id === selectedId}
-            onSelect={() => onSelect(input.id)}
+            onSelect={onSelect && (() => onSelect(input.id))}
             ariaLabel={`Variant ${input.label}`}
             className="overflow-hidden p-[3px] pb-0"
           >

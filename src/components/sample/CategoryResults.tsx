@@ -13,7 +13,7 @@ const AGGREGATION_LABEL = { average: 'Average degradation', maximum: 'Maximum de
 interface CategoryResultsProps {
   summaries: SampleCategorySummary[]
   selected: CategoryId
-  onSelect: (id: CategoryId) => void
+  onSelect?: (id: CategoryId) => void
 }
 
 export function CategoryResults({ summaries, selected, onSelect }: CategoryResultsProps) {
@@ -25,12 +25,17 @@ export function CategoryResults({ summaries, selected, onSelect }: CategoryResul
         title="Assessment Results ( By Category )"
         subtitle="Summary of results for this sample across different assessment categories"
         action={
-          <InfoButton label="category results" text="Select a category to see the assessed inputs behind its result." />
+          onSelect && (
+            <InfoButton
+              label="category results"
+              text="Select a category to see the assessed inputs behind its result."
+            />
+          )
         }
       />
 
       <div
-        role="radiogroup"
+        role={onSelect ? 'radiogroup' : undefined}
         aria-label="Assessment category"
         className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4"
       >
@@ -39,7 +44,7 @@ export function CategoryResults({ summaries, selected, onSelect }: CategoryResul
             key={s.categoryId}
             name="category"
             checked={s.categoryId === selected}
-            onSelect={() => onSelect(s.categoryId)}
+            onSelect={onSelect && (() => onSelect(s.categoryId))}
             className="p-4"
           >
             <span className="flex items-start justify-between gap-2">
